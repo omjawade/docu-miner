@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 import re
 
 # URL of the State Farm policy documents page
-url = 'https://www.statefarm.com/insurance/state-policy-documents'
+url = 'please add URL'
 
 # Headers to mimic a real browser
 headers = {
