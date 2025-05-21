@@ -2,7 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import re
 
-# URL of the State Farm policy documents page
+
 url = 'please add URL'
 
 # Headers to mimic a real browser
@@ -22,7 +22,7 @@ if response.status_code == 200:
     personal_codes = set()
     business_codes = set()
 
-    # Find all buttons that toggle the accordion panels
+   
     accordion_buttons = soup.find_all('button', class_='-oneX-panel-button')
 
     for button in accordion_buttons:
@@ -34,22 +34,22 @@ if response.status_code == 200:
         if not panel:
             continue
 
-        # Find all anchor tags with href ending in .pdf within the panel
+        
         pdf_links = panel.find_all('a', href=re.compile(r'\.pdf$'))
 
         for link in pdf_links:
             href = link['href']
-            # Extract the document code from the href
+         
             match = re.search(r'/([^/]+)\.pdf$', href)
             if match:
                 doc_code = match.group(1).strip()
-                # Categorize based on the section name
+               
                 if 'business' in section_name:
                     business_codes.add(doc_code)
                 else:
                     personal_codes.add(doc_code)
 
-    # Write sorted unique document codes to respective files
+    
     with open('personal.txt', 'w') as personal_file:
         for code in sorted(personal_codes):
             personal_file.write(code + '\n')
@@ -57,7 +57,7 @@ if response.status_code == 200:
     with open('business.txt', 'w') as business_file:
         for code in sorted(business_codes):
             business_file.write(code + '\n')
-
+# below print statements added to just check in local Sys [optional]
     print("Document codes have been written to 'personal.txt' and 'business.txt'.")
 else:
     print(f"Failed to retrieve the page. Status code: {response.status_code}")
